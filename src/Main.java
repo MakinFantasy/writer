@@ -1,16 +1,20 @@
+import org.java.ebota.Handler;
 import org.java.ebota.KindaFileWriter;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Scanner;
+
 public class Main {
-    public static void main(String[] args){
+    public static void main(String[] args) throws IOException {
+        System.out.println("""
+                START
 
-        KindaFileWriter noOverwriteFirst = new KindaFileWriter("noOverwrite.txt", false);
-        KindaFileWriter noOverwriteSecond = new KindaFileWriter("noOverwrite.txt", false);
-        KindaFileWriter overWriteFirst = new KindaFileWriter("overwrite.txt", true);
-        KindaFileWriter overWriteSecond = new KindaFileWriter("overwrite.txt", true);
-        KindaFileWriter[] workers = {noOverwriteFirst, noOverwriteSecond, overWriteFirst, overWriteSecond};
-
-        for (KindaFileWriter instance : workers) {
-            instance.write();
-        }
+         """);
+        Scanner scan = new Scanner(System.in);
+        KindaFileWriter fw = new KindaFileWriter(scan);
+        Handler handler = new Handler(fw, scan);
+        handler.exec();
+        System.out.println("END");
     }
 }
