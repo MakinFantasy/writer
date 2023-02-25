@@ -17,7 +17,7 @@ public class Handler {
     public void exec() throws IOException {
         try {
             System.out.println("Hey mate, u wanna use me? Sure? Code is pretty bad....Ok, let's start then. So, to run me just type <start>! Or if u need help just write <help>. And type <quit> to finish me.");
-            for (;;) {
+            for (; ; ) {
                 String userInput = this.scanner.nextLine();
                 if (userInput.equals("start")) {
                     this.fileWriter.start();
@@ -33,15 +33,19 @@ public class Handler {
                 } else if (userInput.equals("quit")) {
                     System.out.println("Bye bye!!!");
                     System.exit(0);
+                } else if (userInput.equals("cat")) {
+                    System.out.println("Getting text from file: ");
+                    this.fileWriter.cat();
+                    System.out.println("U can cat again or write smth more");
                 } else {
-                    System.out.println("You're typing smth wrong, Better look at your keyboard...");
+                    System.out.println("U typing bad..try again");
                 }
             }
-        } catch (NoFileFound ex) {
-            System.out.println("No file found with this name. We need to create it");
-            File file = new File(this.fileWriter.getFilepath());
-            file.createNewFile();
-            fileWriter.setOverwrite();
+            } catch(NoFileFound ex) {
+                System.out.println("No file found with this name. We need to create it");
+                File file = new File(this.fileWriter.getFilepath());
+                file.createNewFile();
+                fileWriter.setOverwrite();
+            }
         }
     }
-}
